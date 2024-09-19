@@ -1,3 +1,4 @@
+// app/index.tsx
 import React from "react";
 import {
   View,
@@ -6,9 +7,12 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import BottomNavigation from "../components/BottomNavigation";
 
 interface ChatItem {
   id: string;
@@ -16,6 +20,11 @@ interface ChatItem {
   avatar: string;
   lastMessage: string;
   date: string;
+}
+
+interface StatusItem {
+  id: string;
+  avatar: string;
 }
 
 const chatData: ChatItem[] = [
@@ -63,8 +72,17 @@ const chatData: ChatItem[] = [
   },
 ];
 
+const statusData: StatusItem[] = [
+  { id: "0", avatar: "https://example.com/avatar0.jpg" }, // This will be the "+" icon
+  { id: "1", avatar: "https://example.com/avatar1.jpg" },
+  { id: "2", avatar: "https://example.com/avatar2.jpg" },
+  { id: "3", avatar: "https://example.com/avatar3.jpg" },
+  { id: "4", avatar: "https://example.com/avatar4.jpg" },
+  { id: "5", avatar: "https://example.com/avatar5.jpg" },
+];
+
 const ChatInterface: React.FC = () => {
-  const renderItem = ({ item }: { item: ChatItem }) => (
+  const renderChatItem = ({ item }: { item: ChatItem }) => (
     <TouchableOpacity style={styles.chatItem}>
       <Image source={{ uri: item.avatar }} style={styles.avatar} />
       <View style={styles.chatInfo}>
@@ -75,32 +93,52 @@ const ChatInterface: React.FC = () => {
     </TouchableOpacity>
   );
 
+  const renderStatusItem = ({ item }: { item: StatusItem }) => (
+    <TouchableOpacity style={styles.statusItem} key={item.id}>
+      {item.id === "0" ? (
+        <View style={styles.addStatusButton}>
+          <Ionicons name="add" size={24} color="white" />
+        </View>
+      ) : (
+        <Image source={{ uri: item.avatar }} style={styles.statusAvatar} />
+      )}
+    </TouchableOpacity>
+  );
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Link href="/">
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </Link>
-        <Text style={styles.headerTitle}>Chat</Text>
-        <TouchableOpacity>
-          <Ionicons name="create-outline" size={24} color="black" />
-        </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <View style={styles.header}>
+          <Link href="/">
+            <Ionicons name="arrow-back" size={24} color="black" />
+          </Link>
+          <Text style={styles.headerTitle}>Chat</Text>
+          <TouchableOpacity>
+            <Ionicons name="create-outline" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.searchBar}>
+          <Ionicons name="search-outline" size={20} color="gray" />
+          <Text style={styles.searchText}>Search here...</Text>
+          <TouchableOpacity>
+            <Ionicons name="mic-outline" size={20} color="gray" />
+          </TouchableOpacity>
+        </View>
+        <ScrollView
+          horizontal
+          style={styles.statusList}
+          showsHorizontalScrollIndicator={false}
+        >
+          {statusData.map((item) => renderStatusItem({ item }))}
+        </ScrollView>
+        <FlatList
+          data={chatData}
+          renderItem={renderChatItem}
+          keyExtractor={(item) => item.id}
+        />
       </View>
-      <FlatList
-        data={chatData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={() => (
-          <View style={styles.searchBar}>
-            <Ionicons name="search-outline" size={20} color="gray" />
-            <Text style={styles.searchText}>Search here...</Text>
-            <TouchableOpacity>
-              <Ionicons name="mic-outline" size={20} color="gray" />
-            </TouchableOpacity>
-          </View>
-        )}
-      />
-    </View>
+      <BottomNavigation />
+    </SafeAreaView>
   );
 };
 
@@ -108,6 +146,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    paddingTop: 20, // Add more space on top of the header
+  },
+  content: {
+    flex: 1,
   },
   header: {
     flexDirection: "row",
@@ -133,6 +175,28 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 8,
     color: "gray",
+  },
+  statusList: {
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  statusItem: {
+    marginRight: 16,
+  },
+  statusAvatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "#4CAF50",
+  },
+  addStatusButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#e0e0e0",
+    justifyContent: "center",
+    alignItems: "center",
   },
   chatItem: {
     flexDirection: "row",
