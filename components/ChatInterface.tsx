@@ -31,21 +31,24 @@ const chatData: ChatItem[] = [
   {
     id: "1",
     name: "Smith Mathew",
-    avatar: "https://example.com/avatar1.jpg",
+    avatar:
+      "https://www.shutterstock.com/shutterstock/photos/2419146769/display_1500/stock-photo-an-adult-male-avatar-image-on-a-light-coloured-plain-background-for-use-on-a-chat-bot-he-should-2419146769.jpg",
     lastMessage: "Hi, David. Hope you're doing....",
     date: "29 mar",
   },
   {
     id: "2",
     name: "Merry An.",
-    avatar: "https://example.com/avatar2.jpg",
+    avatar:
+      "https://www.shutterstock.com/shutterstock/photos/2419909229/display_1500/stock-photo-an-adult-female-avatar-image-on-a-light-coloured-plain-background-for-use-on-a-chat-bot-front-on-2419909229.jpg",
     lastMessage: "Are you ready for today's part...",
     date: "12 mar",
   },
   {
     id: "3",
     name: "John Walton",
-    avatar: "https://example.com/avatar3.jpg",
+    avatar:
+      "https://www.shutterstock.com/shutterstock/photos/2419909229/display_1500/stock-photo-an-adult-female-avatar-image-on-a-light-coloured-plain-background-for-use-on-a-chat-bot-front-on-2419909229.jpg",
     lastMessage: "I am sending you a parcel rece...",
     date: "08 Feb",
   },
@@ -74,8 +77,16 @@ const chatData: ChatItem[] = [
 
 const statusData: StatusItem[] = [
   { id: "0", avatar: "https://example.com/avatar0.jpg" }, // This will be the "+" icon
-  { id: "1", avatar: "https://example.com/avatar1.jpg" },
-  { id: "2", avatar: "https://example.com/avatar2.jpg" },
+  {
+    id: "1",
+    avatar:
+      "https://www.shutterstock.com/shutterstock/photos/2419909229/display_1500/stock-photo-an-adult-female-avatar-image-on-a-light-coloured-plain-background-for-use-on-a-chat-bot-front-on-2419909229.jpg",
+  },
+  {
+    id: "2",
+    avatar:
+      "https://www.shutterstock.com/shutterstock/photos/2419909229/display_1500/stock-photo-an-adult-female-avatar-image-on-a-light-coloured-plain-background-for-use-on-a-chat-bot-front-on-2419909229.jpg",
+  },
   { id: "3", avatar: "https://example.com/avatar3.jpg" },
   { id: "4", avatar: "https://example.com/avatar4.jpg" },
   { id: "5", avatar: "https://example.com/avatar5.jpg" },
